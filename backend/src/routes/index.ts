@@ -2,6 +2,8 @@ import { Router, type Request, type Response } from 'express';
 import { authRouter } from './auth.routes';
 import { auditRouter } from './audit.routes';
 import { assetRouter } from './asset.routes';
+import { categoryRouter } from './category.routes';
+import { productRouter } from './product.routes';
 import { getDatabaseHealth } from '@/config/database';
 import { env } from '@/config/env';
 
@@ -45,6 +47,10 @@ apiRouter.use('/audit-logs', auditRouter);
 
 // ── Asset Management (Phase 4) ─────────────────────────────────────────────
 apiRouter.use('/assets', assetRouter);
+
+// ── Categories & Products (Phase 5) ────────────────────────────────────────
+apiRouter.use('/categories', categoryRouter);
+apiRouter.use('/products', productRouter);
 
 // ── Future feature routes will be registered here as each phase is implemented ────
 // apiRouter.use('/products', productRoutes);

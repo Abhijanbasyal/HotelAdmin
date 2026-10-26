@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { cn } from '@/lib/cn';
+import { Button } from '@/components/ui/Button';
 
 // ── FormField ─────────────────────────────────────────────────────────────────
 
@@ -89,16 +90,28 @@ export function FormSection({ title, description, children, className }: FormSec
 // ── FormActions ───────────────────────────────────────────────────────────────
 
 export interface FormActionsProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   className?: string;
   /** Align buttons to the right (default) or left */
   align?: 'left' | 'right' | 'between';
+  submitLabel?: string;
+  cancelLabel?: string;
+  isSubmitting?: boolean;
+  onCancel?: () => void;
 }
 
 /**
  * Container for form action buttons (Submit, Cancel, etc.)
  */
-export function FormActions({ children, className, align = 'right' }: FormActionsProps) {
+export function FormActions({
+  children,
+  className,
+  align = 'right',
+  submitLabel = 'Save Changes',
+  cancelLabel = 'Cancel',
+  isSubmitting = false,
+  onCancel,
+}: FormActionsProps) {
   return (
     <div
       className={cn(
@@ -109,7 +122,25 @@ export function FormActions({ children, className, align = 'right' }: FormAction
         className
       )}
     >
-      {children}
+      {children ? (
+        children
+      ) : (
+        <>
+          {onCancel && (
+            <Button
+              type="button"
+              variant="outline"
+              onClick={onCancel}
+              disabled={isSubmitting}
+            >
+              {cancelLabel}
+            </Button>
+          )}
+          <Button type="submit" isLoading={isSubmitting}>
+            {submitLabel}
+          </Button>
+        </>
+      )}
     </div>
   );
 }

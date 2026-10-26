@@ -125,6 +125,7 @@ export interface ConfirmDialogProps {
   onConfirm: () => void | Promise<void>;
   title: string;
   description?: string;
+  message?: string;
   confirmLabel?: string;
   cancelLabel?: string;
   /** Renders the confirm button in danger styling */
@@ -138,6 +139,7 @@ export function ConfirmDialog({
   onConfirm,
   title,
   description,
+  message,
   confirmLabel = 'Confirm',
   cancelLabel = 'Cancel',
   variant = 'danger',
@@ -147,12 +149,14 @@ export function ConfirmDialog({
     await onConfirm();
   };
 
+  const bodyText = description ?? message;
+
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="sm" preventBackdropClose={isLoading}>
       <div className="px-6 py-5 space-y-4">
         <div className="space-y-1">
           <h2 className="text-base font-semibold text-foreground">{title}</h2>
-          {description && <p className="text-sm text-muted-foreground">{description}</p>}
+          {bodyText && <p className="text-sm text-muted-foreground">{bodyText}</p>}
         </div>
         <div className="flex items-center justify-end gap-3 pt-2">
           <Button variant="outline" size="sm" onClick={onClose} disabled={isLoading}>

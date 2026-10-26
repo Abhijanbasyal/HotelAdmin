@@ -108,12 +108,12 @@ export interface SelectOption {
 
 export interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
   error?: string;
-  options: SelectOption[];
+  options?: SelectOption[];
   placeholder?: string;
 }
 
 export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
-  ({ className, error, options, placeholder, ...props }, ref) => {
+  ({ className, error, options, placeholder, children, ...props }, ref) => {
     const hasError = Boolean(error);
 
     return (
@@ -137,11 +137,12 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
               {placeholder}
             </option>
           )}
-          {options.map((opt) => (
+          {options?.map((opt) => (
             <option key={opt.value} value={opt.value} disabled={opt.disabled}>
               {opt.label}
             </option>
           ))}
+          {children}
         </select>
         {/* Chevron icon */}
         <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-muted-foreground">

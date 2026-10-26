@@ -89,18 +89,37 @@ export function StatusBadge({
 
 // ── Convenience wrappers for common status values ─────────────────────────────
 
+export interface ActiveBadgeProps {
+  active?: boolean;
+  isActive?: boolean;
+  activeLabel?: string;
+  inactiveLabel?: string;
+}
+
 /** Maps a boolean active status to a badge */
-export function ActiveBadge({ active }: { active: boolean }) {
+export function ActiveBadge({
+  active,
+  isActive,
+  activeLabel = 'Active',
+  inactiveLabel = 'Inactive',
+}: ActiveBadgeProps) {
+  const isAct = isActive ?? active ?? false;
   return (
     <StatusBadge
-      variant={active ? 'success' : 'neutral'}
-      label={active ? 'Active' : 'Inactive'}
+      variant={isAct ? 'success' : 'neutral'}
+      label={isAct ? activeLabel : inactiveLabel}
       dot
     />
   );
 }
 
+export interface DeletedBadgeProps {
+  deleted?: boolean;
+  isDeleted?: boolean;
+}
+
 /** Maps a deleted flag to a badge */
-export function DeletedBadge({ deleted }: { deleted: boolean }) {
-  return deleted ? <StatusBadge variant="danger" label="Deleted" dot /> : null;
+export function DeletedBadge({ deleted, isDeleted }: DeletedBadgeProps) {
+  const isDel = isDeleted ?? deleted ?? false;
+  return isDel ? <StatusBadge variant="danger" label="Deleted" dot /> : null;
 }

@@ -191,17 +191,17 @@ npm run test:frontend
 | Module | Status |
 |--------|--------|
 | Dashboard | 🚧 Phase 1 scaffold — Phase 9 completes |
-| Products | 🔜 Phase 5 |
-| Categories | 🔜 Phase 5 |
+| Products | ✅ Phase 5 |
+| Categories | ✅ Phase 5 |
 | Tables | 🔜 Phase 7 |
 | Bookings | 🔜 Phase 7 |
-| Customers | 🔜 Phase 6 |
-| Staff | 🔜 Phase 6 |
+| Customers | 🔜 Phase 6 (Next) |
+| Staff | 🔜 Phase 6 (Next) |
 | Roles & Permissions | 🔜 Phase 8 |
 | Departments | 🔜 Phase 8 |
 | Settings | 🔜 Phase 8 |
-| Authentication | 🔜 Phase 2 |
-| Asset Management | 🔜 Phase 4 |
+| Authentication | ✅ Phase 2 |
+| Asset Management | ✅ Phase 4 |
 | Orders | ❌ Not in scope |
 
 ---
@@ -220,8 +220,8 @@ See `docs/architecture.md` for the detailed folder responsibility map.
 | 2 | Authentication & Authorization | ✅ Completed |
 | 3 | Backend Infrastructure | ✅ Completed |
 | 4 | Asset Management | ✅ Completed |
-| 5 | Categories & Products | 🔜 Next |
-| 6 | Customers & Staff | 🔜 |
+| 5 | Categories & Products | ✅ Completed |
+| 6 | Customers & Staff | 🔜 Next |
 | 7 | Tables & Bookings | 🔜 |
 | 8 | Roles, Departments & Settings | 🔜 |
 | 9 | Dashboard | 🔜 |
