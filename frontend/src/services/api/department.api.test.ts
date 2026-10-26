@@ -2,9 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import {
   listDepartments,
   getActiveDepartments,
-  getDepartment,
   createDepartment,
-  updateDepartment,
   deleteDepartment,
   restoreDepartment,
 } from './department.api';

@@ -196,10 +196,10 @@ npm run test:frontend
 | Customers | ✅ Phase 6 |
 | Staff | ✅ Phase 6 |
 | Departments | ✅ Phase 6 |
-| Tables | 🔜 Phase 7 (Next) |
-| Bookings | 🔜 Phase 7 (Next) |
-| Roles & Permissions | 🔜 Phase 8 |
-| Settings | 🔜 Phase 8 |
+| Tables | ✅ Phase 7 |
+| Bookings | ✅ Phase 7 |
+| Roles & Permissions | 🔜 Phase 8 (Next) |
+| Settings | 🔜 Phase 8 (Next) |
 | Authentication | ✅ Phase 2 |
 | Asset Management | ✅ Phase 4 |
 | Orders | ❌ Not in scope |
@@ -222,8 +222,8 @@ See `docs/architecture.md` for the detailed folder responsibility map.
 | 4 | Asset Management | ✅ Completed |
 | 5 | Categories & Products | ✅ Completed |
 | 6 | Customers & Staff | ✅ Completed |
-| 7 | Tables & Bookings | 🔜 Next |
-| 8 | Roles, Departments & Settings | 🔜 |
+| 7 | Tables & Bookings | ✅ Completed |
+| 8 | Roles, Departments & Settings | 🔜 Next |
 | 9 | Dashboard | 🔜 |
 | 10 | QA & Deployment | 🔜 |
 
