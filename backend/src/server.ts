@@ -11,6 +11,10 @@ async function start(): Promise<void> {
     // Connect to MongoDB before accepting traffic
     await connectDatabase();
 
+    // Verify and ensure local asset storage directory structure
+    const { storageService } = await import('@/services/storage.service');
+    await storageService.ensureDirectoryStructure();
+
     const app = createApp();
 
     const server = app.listen(PORT, () => {

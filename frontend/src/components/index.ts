@@ -50,3 +50,9 @@ export {
   InlineError,
 } from './shared/States';
 export type { LoadingSkeletonProps, EmptyStateProps, ErrorStateProps } from './shared/States';
+
+// Uploaders
+export { ImageUploader } from './uploaders/ImageUploader';
+export type { ImageUploaderProps } from './uploaders/ImageUploader';
+export { FileUploader } from './uploaders/FileUploader';
+export type { FileUploaderProps } from './uploaders/FileUploader';

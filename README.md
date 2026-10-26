@@ -219,8 +219,8 @@ See `docs/architecture.md` for the detailed folder responsibility map.
 | 1 | Foundation & UI System | ✅ Completed |
 | 2 | Authentication & Authorization | ✅ Completed |
 | 3 | Backend Infrastructure | ✅ Completed |
-| 4 | Asset Management | 🔜 Next |
-| 5 | Categories & Products | 🔜 |
+| 4 | Asset Management | ✅ Completed |
+| 5 | Categories & Products | 🔜 Next |
 | 6 | Customers & Staff | 🔜 |
 | 7 | Tables & Bookings | 🔜 |
 | 8 | Roles, Departments & Settings | 🔜 |
