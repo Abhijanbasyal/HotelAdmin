@@ -2,6 +2,8 @@ import mongoose, { Schema, Document, Model, Types } from 'mongoose';
 import argon2 from 'argon2';
 import './Role.model';
 import type { IRole } from './Role.model';
+import './Department.model';
+import type { IDepartment } from './Department.model';
 
 import type { ISoftDeletable } from '@/utils/softDelete';
 
@@ -11,6 +13,9 @@ export interface IUser extends Document, ISoftDeletable {
   email: string;
   password?: string;
   role: Types.ObjectId | IRole;
+  department?: Types.ObjectId | IDepartment | null;
+  phone?: string;
+  jobTitle?: string;
   isActive: boolean;
   avatarUrl?: string;
   lastLoginAt?: Date;
@@ -51,6 +56,22 @@ const userSchema = new Schema<IUser>(
       ref: 'Role',
       required: [true, 'User role is required'],
       index: true,
+    },
+    department: {
+      type: Schema.Types.ObjectId,
+      ref: 'Department',
+      default: null,
+      index: true,
+    },
+    phone: {
+      type: String,
+      trim: true,
+      maxlength: [30, 'Phone cannot exceed 30 characters'],
+    },
+    jobTitle: {
+      type: String,
+      trim: true,
+      maxlength: [100, 'Job title cannot exceed 100 characters'],
     },
     isActive: {
       type: Boolean,

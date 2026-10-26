@@ -4,6 +4,9 @@ import { auditRouter } from './audit.routes';
 import { assetRouter } from './asset.routes';
 import { categoryRouter } from './category.routes';
 import { productRouter } from './product.routes';
+import { customerRouter } from './customer.routes';
+import { staffRouter } from './staff.routes';
+import { departmentRouter } from './department.routes';
 import { getDatabaseHealth } from '@/config/database';
 import { env } from '@/config/env';
 
@@ -52,13 +55,7 @@ apiRouter.use('/assets', assetRouter);
 apiRouter.use('/categories', categoryRouter);
 apiRouter.use('/products', productRouter);
 
-// ── Future feature routes will be registered here as each phase is implemented ────
-// apiRouter.use('/products', productRoutes);
-// apiRouter.use('/categories', categoryRoutes);
-// apiRouter.use('/tables', tableRoutes);
-// apiRouter.use('/bookings', bookingRoutes);
-// apiRouter.use('/customers', customerRoutes);
-// apiRouter.use('/staff', staffRoutes);
-// apiRouter.use('/roles', roleRoutes);
-// apiRouter.use('/departments', departmentRoutes);
-// apiRouter.use('/assets', assetRoutes);
+// ── Customers, Staff & Departments (Phase 6) ───────────────────────────────
+apiRouter.use('/customers', customerRouter);
+apiRouter.use('/staff', staffRouter);
+apiRouter.use('/departments', departmentRouter);
