@@ -1,0 +1,24 @@
+# This directory contains uploaded assets (images, videos, documents).
+# It is intentionally excluded from source control via .gitignore.
+#
+# The actual storage root is configured via the ASSET_STORAGE_ROOT environment variable.
+# See .env.example for configuration details.
+#
+# Structure when populated:
+#   assets/
+#     images/
+#       products/
+#       users/
+#       customers/
+#       staff/
+#       categories/
+#       general/
+#     videos/
+#       products/
+#       users/
+#       general/
+#     files/
+#       documents/
+#       invoices/
+#       reports/
+#       general/

@@ -1,0 +1,285 @@
+/**
+ * =============================================================================
+ * Hotel Management Admin System — Global CSS
+ * =============================================================================
+ *
+ * ARCHITECTURE:
+ *   All design tokens live here as CSS custom properties.
+ *   Tailwind reads them via tailwind.config.js.
+ *   The ThemeProvider switches [data-theme] on <html> to swap palettes.
+ *   Never hardcode brand colors in component files.
+ *
+ * TOKEN CATEGORIES:
+ *   1. Layout dimensions (sidebar, topbar)
+ *   2. Typography (font families)
+ *   3. Border radius & shadows
+ *   4. Light-mode surface & text colors
+ *   5. Dark-mode overrides
+ *   6. Theme palettes (Blue, Violet, Emerald, Teal, Rose, Amber)
+ *   7. Semantic status colors (FIXED — never change with theme)
+ *   8. Utility & base styles
+ * =============================================================================
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =============================================================================
+   1. LAYOUT DIMENSIONS
+   ============================================================================= */
+:root {
+  --sidebar-width: 260px;
+  --sidebar-width-collapsed: 72px;
+  --topbar-height: 64px;
+
+  /* ==========================================================================
+     2. TYPOGRAPHY
+     ========================================================================== */
+  --font-inter: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', Menlo, monospace;
+
+  /* ==========================================================================
+     3. BORDER RADIUS
+     ========================================================================== */
+  --radius-sm: 0.375rem;  /* 6px  */
+  --radius:    0.5rem;    /* 8px  */
+  --radius-lg: 0.75rem;  /* 12px */
+  --radius-xl: 1rem;     /* 16px */
+
+  /* ==========================================================================
+     4. SHADOWS
+     ========================================================================== */
+  --shadow-card:    0 1px 3px 0 rgb(0 0 0 / 0.08), 0 1px 2px -1px rgb(0 0 0 / 0.06);
+  --shadow-dropdown:0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.06);
+  --shadow-modal:   0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.06);
+}
+
+/* =============================================================================
+   5. LIGHT MODE (default) — BLUE theme
+   ============================================================================= */
+:root,
+[data-theme='blue'] {
+  /* Primary brand (Blue) */
+  --primary:            221 83% 53%;
+  --primary-foreground: 0 0% 100%;
+  --primary-50:         214 100% 97%;
+  --primary-100:        214 95% 93%;
+  --primary-200:        213 97% 87%;
+  --primary-500:        217 91% 60%;
+  --primary-600:        221 83% 53%;
+  --primary-700:        224 76% 48%;
+  --primary-900:        224 64% 33%;
+
+  /* Surfaces */
+  --background:         210 20% 98%;
+  --foreground:         222 84% 5%;
+  --card:               0 0% 100%;
+  --card-foreground:    222 84% 5%;
+  --muted:              210 40% 96%;
+  --muted-foreground:   215 16% 47%;
+  --border:             214 32% 91%;
+  --input:              214 32% 91%;
+  --ring:               221 83% 53%;
+
+  /* Sidebar */
+  --sidebar:                    220 26% 14%;
+  --sidebar-foreground:         210 40% 98%;
+  --sidebar-border:             220 26% 20%;
+  --sidebar-accent:             220 26% 22%;
+  --sidebar-accent-foreground:  210 40% 98%;
+}
+
+/* =============================================================================
+   6. DARK MODE — overlays on current theme
+   ============================================================================= */
+.dark {
+  /* Surfaces */
+  --background:         222 47% 8%;
+  --foreground:         210 40% 98%;
+  --card:               220 26% 14%;
+  --card-foreground:    210 40% 98%;
+  --muted:              220 26% 20%;
+  --muted-foreground:   215 20% 65%;
+  --border:             220 26% 24%;
+  --input:              220 26% 20%;
+  --ring:               var(--primary);
+
+  /* Sidebar (darker in dark mode) */
+  --sidebar:                    222 47% 6%;
+  --sidebar-foreground:         210 40% 98%;
+  --sidebar-border:             220 26% 12%;
+  --sidebar-accent:             220 26% 14%;
+  --sidebar-accent-foreground:  210 40% 98%;
+
+  /* Shadows (more visible on dark backgrounds) */
+  --shadow-card:     0 1px 3px 0 rgb(0 0 0 / 0.4), 0 1px 2px -1px rgb(0 0 0 / 0.3);
+  --shadow-dropdown: 0 4px 6px -1px rgb(0 0 0 / 0.5), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+  --shadow-modal:    0 20px 25px -5px rgb(0 0 0 / 0.5), 0 8px 10px -6px rgb(0 0 0 / 0.3);
+}
+
+/* =============================================================================
+   7. THEME PALETTES
+   Colors applied to both light and dark modes (surfaces stay the same).
+   ============================================================================= */
+
+/* ── Violet ─────────────────────────────────────────────────────────────────── */
+[data-theme='violet'] {
+  --primary:            263 70% 50%;
+  --primary-foreground: 0 0% 100%;
+  --primary-50:         270 100% 98%;
+  --primary-100:        269 100% 95%;
+  --primary-200:        269 100% 92%;
+  --primary-500:        263 70% 50%;
+  --primary-600:        262 83% 58%;
+  --primary-700:        263 70% 50%;
+  --primary-900:        264 67% 35%;
+  --ring:               263 70% 50%;
+}
+
+/* ── Emerald ────────────────────────────────────────────────────────────────── */
+[data-theme='emerald'] {
+  --primary:            160 84% 39%;
+  --primary-foreground: 0 0% 100%;
+  --primary-50:         152 81% 96%;
+  --primary-100:        149 80% 90%;
+  --primary-200:        152 76% 80%;
+  --primary-500:        160 84% 39%;
+  --primary-600:        161 94% 30%;
+  --primary-700:        163 94% 24%;
+  --primary-900:        166 92% 14%;
+  --ring:               160 84% 39%;
+}
+
+/* ── Teal ───────────────────────────────────────────────────────────────────── */
+[data-theme='teal'] {
+  --primary:            172 66% 50%;
+  --primary-foreground: 0 0% 100%;
+  --primary-50:         166 76% 97%;
+  --primary-100:        167 85% 89%;
+  --primary-200:        168 84% 78%;
+  --primary-500:        173 80% 40%;
+  --primary-600:        175 84% 32%;
+  --primary-700:        176 84% 27%;
+  --primary-900:        176 85% 16%;
+  --ring:               172 66% 50%;
+}
+
+/* ── Rose ───────────────────────────────────────────────────────────────────── */
+[data-theme='rose'] {
+  --primary:            346 77% 49%;
+  --primary-foreground: 0 0% 100%;
+  --primary-50:         356 100% 97%;
+  --primary-100:        356 100% 94%;
+  --primary-200:        353 96% 90%;
+  --primary-500:        351 95% 71%;
+  --primary-600:        346 77% 49%;
+  --primary-700:        345 83% 41%;
+  --primary-900:        347 77% 28%;
+  --ring:               346 77% 49%;
+}
+
+/* ── Amber ──────────────────────────────────────────────────────────────────── */
+[data-theme='amber'] {
+  --primary:            38 92% 50%;
+  --primary-foreground: 0 0% 10%;
+  --primary-50:         48 100% 96%;
+  --primary-100:        48 96% 89%;
+  --primary-200:        48 97% 77%;
+  --primary-500:        38 92% 50%;
+  --primary-600:        32 95% 44%;
+  --primary-700:        26 90% 37%;
+  --primary-900:        23 83% 27%;
+  --ring:               38 92% 50%;
+}
+
+/* =============================================================================
+   8. BASE STYLES
+   ============================================================================= */
+@layer base {
+  * {
+    @apply border-border;
+    box-sizing: border-box;
+  }
+
+  html {
+    font-family: var(--font-inter);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    min-height: 100vh;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  /* Focus ring — accessible and consistent across all interactive elements */
+  :focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+  }
+
+  /* Remove default button styles */
+  button {
+    cursor: pointer;
+  }
+
+  /* Smooth transitions for theme changes */
+  .theme-transition,
+  .theme-transition *,
+  .theme-transition *::before,
+  .theme-transition *::after {
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.15s ease !important;
+  }
+}
+
+/* =============================================================================
+   9. COMPONENT LAYER — shared reusable styles
+   ============================================================================= */
+@layer components {
+  /* ── Scrollbar ────────────────────────────────────────────────────────────── */
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--border)) transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: hsl(var(--border));
+    border-radius: 9999px;
+  }
+
+  /* ── Loading shimmer ──────────────────────────────────────────────────────── */
+  .shimmer {
+    background: linear-gradient(
+      90deg,
+      hsl(var(--muted)) 25%,
+      hsl(var(--muted-foreground) / 0.1) 50%,
+      hsl(var(--muted)) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite linear;
+  }
+
+  /* ── Glass morphism card ──────────────────────────────────────────────────── */
+  .glass-card {
+    @apply bg-card/80 backdrop-blur-sm border border-border/50;
+  }
+
+  /* ── Page container ───────────────────────────────────────────────────────── */
+  .page-container {
+    @apply mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8 py-6;
+  }
+}
