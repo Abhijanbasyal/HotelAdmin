@@ -9,6 +9,8 @@ import { staffRouter } from './staff.routes';
 import { departmentRouter } from './department.routes';
 import { tableRouter } from './table.routes';
 import { bookingRouter } from './booking.routes';
+import { roleRouter } from './role.routes';
+import { settingRouter } from './setting.routes';
 import { getDatabaseHealth } from '@/config/database';
 import { env } from '@/config/env';
 
@@ -65,3 +67,7 @@ apiRouter.use('/departments', departmentRouter);
 // ── Tables & Bookings (Phase 7) ────────────────────────────────────────────
 apiRouter.use('/tables', tableRouter);
 apiRouter.use('/bookings', bookingRouter);
+
+// ── Roles & Settings (Phase 8) ─────────────────────────────────────────────
+apiRouter.use('/roles', roleRouter);
+apiRouter.use('/settings', settingRouter);

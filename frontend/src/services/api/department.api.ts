@@ -1,13 +1,15 @@
 import { apiClient, type ApiResponse } from './client';
 import type { IPaginationMeta } from '@/types';
 
+export type DepartmentStatus = 'active' | 'inactive';
+
 export interface DepartmentItem {
   id: string;
   _id: string;
   name: string;
   code: string;
   description?: string;
-  status: 'active' | 'inactive';
+  status: DepartmentStatus;
   isDeleted: boolean;
   createdAt: string;
   updatedAt: string;
