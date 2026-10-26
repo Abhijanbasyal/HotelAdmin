@@ -11,6 +11,7 @@ import { tableRouter } from './table.routes';
 import { bookingRouter } from './booking.routes';
 import { roleRouter } from './role.routes';
 import { settingRouter } from './setting.routes';
+import { dashboardRouter } from './dashboard.routes';
 import { getDatabaseHealth } from '@/config/database';
 import { env } from '@/config/env';
 
@@ -71,3 +72,6 @@ apiRouter.use('/bookings', bookingRouter);
 // ── Roles & Settings (Phase 8) ─────────────────────────────────────────────
 apiRouter.use('/roles', roleRouter);
 apiRouter.use('/settings', settingRouter);
+
+// ── Dashboard & Analytics (Phase 9) ───────────────────────────────────────
+apiRouter.use('/dashboard', dashboardRouter);

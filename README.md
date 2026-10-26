@@ -190,7 +190,7 @@ npm run test:frontend
 
 | Module | Status |
 |--------|--------|
-| Dashboard | 🚧 Phase 1 scaffold — Phase 9 completes |
+| Dashboard | ✅ Phase 9 |
 | Products | ✅ Phase 5 |
 | Categories | ✅ Phase 5 |
 | Customers | ✅ Phase 6 |
@@ -224,8 +224,8 @@ See `docs/architecture.md` for the detailed folder responsibility map.
 | 6 | Customers & Staff | ✅ Completed |
 | 7 | Tables & Bookings | ✅ Completed |
 | 8 | Roles, Departments & Settings | ✅ Completed |
-| 9 | Dashboard | 🔜 Next |
-| 10 | QA & Deployment | 🔜 |
+| 9 | Dashboard & Analytics | ✅ Completed |
+| 10 | QA & Deployment | 🔜 Next |
 
 ---
 
