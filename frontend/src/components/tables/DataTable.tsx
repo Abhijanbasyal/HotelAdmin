@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { ChevronUp, ChevronDown, ChevronsUpDown, MoreHorizontal } from 'lucide-react';
 import { cn } from '@/lib/cn';
 import { Button, IconButton } from '@/components/ui/Button';
@@ -148,7 +148,8 @@ export function DataTable<T>({
   return (
     <div className={cn('flex flex-col', className)}>
       {/* ── Table ─────────────────────────────────────────────────────────── */}
-      <div className="rounded-lg border border-border bg-card overflow-hidden">
+      {/* Note: no overflow-hidden here — allows the fixed-position action dropdown to escape */}
+      <div className="rounded-lg border border-border bg-card">
         <div className="overflow-x-auto scrollbar-thin">
           <table className="w-full text-sm" role="grid">
             {/* Header */}
@@ -197,8 +198,12 @@ export function DataTable<T>({
 
             {/* Body */}
             <tbody className="divide-y divide-border">
-              {data.map((row) => {
-                const key = rowKey(row);
+              {data.map((row, rowIndex) => {
+                const key = rowKey
+                  ? rowKey(row)
+                  : ((row as Record<string, unknown>)._id as string) ||
+                    ((row as Record<string, unknown>).id as string) ||
+                    String(rowIndex);
                 const isActionOpen = openActionRow === key;
 
                 return (
@@ -233,29 +238,16 @@ export function DataTable<T>({
                       </td>
                     ))}
 
-                    {/* Actions dropdown */}
+                    {/* Actions column */}
                     {actions && actions.length > 0 && (
-                      <td
-                        className="px-4 py-3 text-right"
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        <div className="relative inline-block">
-                          <IconButton
-                            icon={<MoreHorizontal className="h-4 w-4" />}
-                            aria-label={`Actions for row ${key}`}
-                            variant="ghost"
-                            size="icon-sm"
-                            onClick={() => setOpenActionRow(isActionOpen ? null : key)}
-                          />
-                          {isActionOpen && (
-                            <ActionDropdown
-                              actions={actions}
-                              row={row}
-                              onClose={() => setOpenActionRow(null)}
-                            />
-                          )}
-                        </div>
-                      </td>
+                      <RowActionsCell
+                        actions={actions}
+                        row={row}
+                        rowKey={key}
+                        isOpen={isActionOpen}
+                        onToggle={() => setOpenActionRow(isActionOpen ? null : key)}
+                        onClose={() => setOpenActionRow(null)}
+                      />
                     )}
                   </tr>
                 );
@@ -285,24 +277,99 @@ function SortIcon({ active, direction }: { active: boolean; direction?: SortDire
   return <ChevronDown className="h-3.5 w-3.5" aria-hidden />;
 }
 
+// ── Row Actions Cell ───────────────────────────────────────────────────────────
+// A <td> wrapper that holds the trigger button and the fixed-position dropdown.
+// Using position:fixed on the dropdown means it escapes overflow:hidden/auto
+// ancestors (the scrollable table wrapper) and always renders fully in the
+// viewport — flipping upward when there is not enough room below.
+
+interface RowActionsCellProps<T> {
+  actions: RowAction<T>[];
+  row: T;
+  rowKey: string;
+  isOpen: boolean;
+  onToggle: () => void;
+  onClose: () => void;
+}
+
+function RowActionsCell<T>({
+  actions,
+  row,
+  rowKey,
+  isOpen,
+  onToggle,
+  onClose,
+}: RowActionsCellProps<T>) {
+  const triggerRef = useRef<HTMLButtonElement>(null);
+
+  return (
+    <td
+      className="px-4 py-3 text-right"
+      onClick={(e) => e.stopPropagation()}
+    >
+      <IconButton
+        ref={triggerRef}
+        icon={<MoreHorizontal className="h-4 w-4" />}
+        aria-label={`Actions for row ${rowKey}`}
+        variant="ghost"
+        size="icon-sm"
+        onClick={onToggle}
+      />
+      {isOpen && (
+        <ActionDropdown
+          actions={actions}
+          row={row}
+          onClose={onClose}
+          triggerRef={triggerRef}
+        />
+      )}
+    </td>
+  );
+}
+
 // ── Action Dropdown ────────────────────────────────────────────────────────────
 
 interface ActionDropdownProps<T> {
   actions: RowAction<T>[];
   row: T;
   onClose: () => void;
+  triggerRef: React.RefObject<HTMLButtonElement>;
 }
 
-function ActionDropdown<T>({ actions, row, onClose }: ActionDropdownProps<T>) {
+function ActionDropdown<T>({ actions, row, onClose, triggerRef }: ActionDropdownProps<T>) {
   const visibleActions = actions.filter((a) => !a.hidden?.(row));
+  const menuRef = useRef<HTMLDivElement>(null);
+  const [style, setStyle] = useState<React.CSSProperties>({ visibility: 'hidden', position: 'fixed' });
+
+  useEffect(() => {
+    if (!triggerRef.current) return;
+
+    const btn = triggerRef.current.getBoundingClientRect();
+    const menuEl = menuRef.current;
+    // Estimate height: 40px per item, minimum 80px
+    const estimatedHeight = menuEl ? menuEl.offsetHeight : visibleActions.length * 40 + 8;
+    const spaceBelow = window.innerHeight - btn.bottom;
+    const openUpward = spaceBelow < estimatedHeight + 8;
+
+    setStyle({
+      position: 'fixed',
+      right: window.innerWidth - btn.right,
+      top: openUpward ? undefined : btn.bottom + 4,
+      bottom: openUpward ? window.innerHeight - btn.top + 4 : undefined,
+      minWidth: 160,
+      visibility: 'visible',
+    });
+  }, [triggerRef, visibleActions.length]);
 
   return (
     <>
       {/* Invisible overlay to close dropdown when clicking outside */}
-      <div className="fixed inset-0 z-10" onClick={onClose} aria-hidden />
+      <div className="fixed inset-0 z-40" onClick={onClose} aria-hidden />
       <div
+        ref={menuRef}
+        style={style}
         className={cn(
-          'absolute right-0 top-full mt-1 z-20',
+          'z-50',
           'min-w-[160px] rounded-lg border border-border bg-card shadow-dropdown',
           'py-1 animate-fade-in'
         )}
