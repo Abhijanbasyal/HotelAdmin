@@ -6,9 +6,13 @@ import * as bookingApi from '@/services/api/booking.api';
 import * as tableApi from '@/services/api/table.api';
 import * as customerApi from '@/services/api/customer.api';
 
+const mockPush = vi.fn();
+const mockReplace = vi.fn();
+
 vi.mock('next/navigation', () => ({
-  useRouter: () => ({ push: vi.fn() }),
+  useRouter: () => ({ push: mockPush, replace: mockReplace }),
   usePathname: () => '/bookings',
+  useSearchParams: () => new URLSearchParams(),
 }));
 
 vi.mock('sonner', () => ({
@@ -67,10 +71,12 @@ describe('BookingsPage Component', () => {
     });
   });
 
-  it('renders bookings header, statistics, and booking row', async () => {
+  it('renders bookings header, internal navigation tabs, and booking row', async () => {
     render(<BookingsPage />);
 
     expect(screen.getByRole('heading', { name: /Bookings & Reservations/i })).toBeInTheDocument();
+    expect(screen.getByRole('tab', { name: /Booking Dashboard/i })).toBeInTheDocument();
+    expect(screen.getByRole('tab', { name: /Booking List/i })).toBeInTheDocument();
     expect(screen.getByPlaceholderText(/Search booking ref/i)).toBeInTheDocument();
 
     await waitFor(() => {
@@ -98,6 +104,26 @@ describe('BookingsPage Component', () => {
 
     await waitFor(() => {
       expect(bookingApi.updateBookingStatus).toHaveBeenCalledWith('bkg-1', 'seated');
+    });
+  });
+
+  it('switches between Booking Dashboard and Booking List internal tabs', async () => {
+    render(<BookingsPage />);
+
+    const dashboardTab = screen.getByRole('tab', { name: /Booking Dashboard/i });
+    fireEvent.click(dashboardTab);
+
+    await waitFor(() => {
+      expect(screen.getByText(/Actively Seated Guests/i)).toBeInTheDocument();
+      expect(screen.getByText(/Upcoming Reservations/i)).toBeInTheDocument();
+      expect(mockReplace).toHaveBeenCalled();
+    });
+
+    const listTab = screen.getByRole('tab', { name: /Booking List/i });
+    fireEvent.click(listTab);
+
+    await waitFor(() => {
+      expect(screen.getByPlaceholderText(/Search booking ref/i)).toBeInTheDocument();
     });
   });
 });

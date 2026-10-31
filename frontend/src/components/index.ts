@@ -31,6 +31,8 @@ export type { DashboardLayoutProps } from './layout/DashboardLayout';
 // Navigation
 export { Breadcrumbs } from './navigation/Breadcrumbs';
 export type { BreadcrumbsProps, BreadcrumbItem } from './navigation/Breadcrumbs';
+export { NavTabs } from './navigation/NavTabs';
+export type { NavTabsProps, NavTabItem } from './navigation/NavTabs';
 
 // Table Components
 export { DataTable, TablePagination } from './tables/DataTable';
@@ -54,5 +56,7 @@ export type { LoadingSkeletonProps, EmptyStateProps, ErrorStateProps } from './s
 // Uploaders
 export { ImageUploader } from './uploaders/ImageUploader';
 export type { ImageUploaderProps } from './uploaders/ImageUploader';
+export { VideoUploader } from './uploaders/VideoUploader';
+export type { VideoUploaderProps } from './uploaders/VideoUploader';
 export { FileUploader } from './uploaders/FileUploader';
 export type { FileUploaderProps } from './uploaders/FileUploader';
